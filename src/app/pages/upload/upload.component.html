@@ -1,0 +1,28 @@
+<div class="page-container">
+
+  <mat-card (drop)="onDrop($event)" (dragover)="onDragover($event)">
+    <mat-card-subtitle>
+
+      <div *ngIf="!file">Drag a Mythril Statespace JSON file here</div>
+
+      <div *ngIf="file && validating">
+        <div>Validating "{{ file.name }}"</div>
+        <div class="spinner-container">
+          <mat-spinner diameter="20"></mat-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="file && !validating">
+        <div class="file-name">"{{ file.name }}"</div>
+        <div class="validation-message" [class.red]="!statespace">{{ statespace ? 'Validation Successful' : validationMessage }}</div>
+      </div>
+
+    </mat-card-subtitle>
+  </mat-card>
+
+  <button mat-raised-button color="primary" class="action-button"
+          *ngIf="file && statespace" (click)="save()">
+    Save & Continue
+  </button>
+
+</div>

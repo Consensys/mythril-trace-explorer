@@ -1,0 +1,67 @@
+<div class="container" [class.active]="node" *ngIf="node">
+  <div class="inner">
+
+    <div class="title-row">
+      {{ node.id + ': ' + node.func }}
+    </div>
+
+    <div class="row step-buttons-row">
+      <button mat-raised-button color="accent" (click)="stepBack()"
+              [disabled]="stateIndex === 0" matTooltip="Step back">
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" (click)="stepForward()"
+              [disabled]="stateIndex === node.states.length - 1" matTooltip="Step forward">
+        <mat-icon>redo</mat-icon>
+      </button>
+    </div>
+
+    <div class="row instructions-row">
+      <div class="row-name" (click)="hideInstructions = !hideInstructions" [class.collapsed]="hideInstructions">Instructions</div>
+      <div class="list instructions-list" [hidden]="hideInstructions">
+        <div *ngFor="let instruction of node.instructions; let i = index" [class.active]="stateIndex === i">
+          {{ instruction }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row stack-row">
+      <div class="row-name" (click)="hideStack = !hideStack" [class.collapsed]="hideStack">Stack</div>
+      <div class="list stack-list" [hidden]="hideStack">
+        <div *ngFor="let value of node.states[stateIndex].machine.stack | reverse; let i = index">
+          <span class="label">{{ i }}</span>{{ ': ' + value }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row memory-row">
+      <div class="row-name" (click)="hideMemory = !hideMemory" [class.collapsed]="hideMemory">Memory</div>
+      <div class="list stack-list" [hidden]="hideMemory">
+        <ng-container *ngFor="let value of node.states[stateIndex].machine.memory; let i = index">
+          <div *ngIf="value || node.states[stateIndex].machine.memory[i-1] || node.states[stateIndex].machine.memory[i+1] || !i">
+            <span class="label">{{ i }}</span>{{ ': ' + value }}
+          </div>
+          <div *ngIf="!value && !node.states[stateIndex].machine.memory[i-1] && (node.states[stateIndex].machine.memory[i-2] || i==1)">
+            . . .
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="row storage-row">
+      <div class="row-name" (click)="hideStorage = !hideStorage" [class.collapsed]="hideStorage">Storage</div>
+      <div class="list accounts-list" [hidden]="hideStorage">
+        <div *ngFor="let account of node.states[stateIndex].accounts">
+          <div class="address">{{ account.address }}</div>
+          <div class="storage-list">
+            <div *ngFor="let key of account.storageKeys" class="storage-pair">
+              <div><span class="label">key: </span>{{ key }}</div>
+              <div><span class="label">value: </span>{{ account.storage[key] }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

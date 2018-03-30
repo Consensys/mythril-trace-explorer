@@ -1,0 +1,95 @@
+.container {
+  background-color: #f8f8f8;
+  position: absolute;
+  right: -400px;
+  top: 0;
+  height: 100%;
+  width: 400px;
+  border-top: 1px solid #8c8c8c;
+
+  overflow-y: auto;
+
+  transition: 0.3s linear transform;
+
+  &.active {
+    transform: translateX(-400px);
+  }
+
+  .inner {
+    padding: 15px;
+
+    .row {
+      margin-bottom: 20px;
+    }
+
+    .row-name {
+      font-size: 1.2em;
+      border: 1px solid black;
+      background-color: #8c8c8c;
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &.collapsed {
+        background-color: #3f51b5;
+        color: white;
+      }
+    }
+
+    .list {
+      padding: 15px;
+      max-height: 150px;
+      overflow-y: auto;
+      font-size: 0.9em;
+      line-height: 1.3em;
+
+      div {
+        margin-bottom: 10px;
+      }
+
+      .label {
+        color: #999999;
+      }
+    }
+
+    .title-row {
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .step-buttons-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .instructions-row {
+      .instructions-list {
+        div {
+          margin-bottom: 0;
+        }
+        .active {
+          background-color: #a1aade;
+        }
+      }
+    }
+
+    .storage-row {
+      .address {
+        background-color: rgba(0,0,0,.12);
+        padding: 5px;
+      }
+      .storage-list {
+        padding-left: 15px;
+        .storage-pair {
+          div {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+  }
+}
